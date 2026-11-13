@@ -1,0 +1,74 @@
+# Ce que fait le programme
+Il enregistre vos appels (votre micro, l'audio de l'appel, des écrans ou des fenêtres), puis les transcrit avec Nvidia Nemotron 3.5 sur DeepInfra, sépare les voix et vous permet de nommer chaque interlocuteur en écoutant quelques extraits. Le résultat est un dossier avec une vidéo sous-titrée et une transcription prête à donner à une IA. En plus, les Sous-titres live affichent à l'écran, presque en temps réel, ce qui est dit.
+
+# Premier démarrage
+- Réglages → collez la clé DeepInfra (deepinfra.com → API Keys), appuyez sur Vérifier.
+- Écrivez votre nom : il s'affichera à la place de « Me » (l'étiquette qui vous désigne).
+- Appuyez sur « Enregistrer les réglages » (sceau rouge) dans la barre du haut.
+- Compression audio : Opus à 24-32 kbps est le meilleur choix pour la voix (environ 11-14 Mo par heure). MP3 pour la compatibilité, FLAC/WAV seulement pour envoyer l'audio sans perte.
+
+# Enregistrer un appel
+- Onglet Audio : cochez le micro (étiquette « Me ») et la sortie du casque/des haut-parleurs (étiquette « Call ») avec « Plusieurs personnes (appel) » coché. Les barres de niveau doivent bouger quand quelqu'un parle.
+- Vous ne savez pas quel est le bon périphérique ? « Tester » sur un micro enregistre 4 secondes et vous les fait réécouter ; sur une sortie il joue un carillon et vérifie qu'il arrive (si vous l'entendez dans le casque de l'appel, c'est la bonne). « Afficher les niveaux » allume toutes les barres : parlez ou lancez un son et regardez laquelle bouge.
+- Onglet Vidéo (facultatif) : cochez l'écran où se trouve Teams. C'est le choix le plus sûr ; les fenêtres seules sont parfois noires.
+- Onglet Vidéo : à droite, un aperçu en direct de l'écran ou de la fenêtre sélectionnés, exactement tel qu'il sera enregistré. Si l'aperçu est noir avec « Fenêtre directe », un avertissement apparaît : utilisez « Zone de l'écran » ou tout l'écran.
+- Appuyez sur « Démarrer l'enregistrement ». À la fin de l'appel appuyez sur « Arrêter et enregistrer » : le programme fait tout tout seul.
+- Utilisez un casque : avec des haut-parleurs, le micro capte aussi les autres et le texte est dupliqué.
+- Compression vidéo (onglet Vidéo) : « H.265 Intel Quick Sync » produit de petits fichiers sans presque charger le processeur ; « H.264 » est le plus compatible. Qualité « Moyenne » et résolution « 1080p maximum » conviennent aux réunions et aux diapositives.
+
+# Nommer les interlocuteurs
+- Une fois la transcription terminée, la fenêtre Interlocuteurs s'ouvre : pour chaque voix appuyez sur ▶ pour entendre 5 secondes où seule cette voix parle.
+- Écrivez ou choisissez le nom (le programme se souvient de ceux déjà utilisés) et appuyez sur « Appliquer les noms » : ils sont remplacés dans la transcription, les sous-titres et la vidéo.
+- Si deux voix sont la même personne, donnez le même nom. Si vous ne savez pas qui c'est, laissez vide.
+- « Plus tard » ferme sans rien changer : rouvrez-la depuis l'onglet Transcription avec « Nommer les interlocuteurs… ».
+- Les appels de plus d'une heure sont découpés en blocs : le programme relie tout seul les voix de la même personne d'un bloc à l'autre.
+
+# Traiter des fichiers déjà enregistrés
+- « Traiter des fichiers… » → choisissez un ou plusieurs fichiers (enregistrements Teams, MP4, MP3, M4A…).
+- Pour chacun un dossier est créé comme pour les enregistrements, puis la fenêtre des noms s'ouvre.
+- Ici toutes les voix, y compris la vôtre, sont sur la même piste.
+
+# Sous-titres live et Notaire
+- Appuyez sur « Sous-titres live » : ils utilisent les mêmes sources cochées dans l'onglet Audio et fonctionnent aussi sans enregistrer.
+- Les sous-titres apparaissent en bas (faites-les glisser où vous voulez, molette = taille) ; à droite, la fenêtre Notaire affiche tout ce qui a été dit, ligne par ligne, avec l'heure et la personne qui parle.
+- Les sous-titres et le Notaire ne sont visibles ni dans le partage d'écran ni dans les enregistrements.
+- Retard en général de 1-2 secondes : la phrase en cours est mise à jour pendant que vous parlez et devient définitive à la première pause (une demi-seconde). Les mots confirmés deviennent blancs, ceux que le modèle peut encore corriger restent gris.
+- Dans la ligne du haut des sous-titres, « réponse ~N s » indique la vitesse de réponse de DeepInfra : si elle monte à 4-8 s, c'est le service qui est surchargé, pas votre PC.
+- Le Notaire est enregistré automatiquement dans recordings\live\notary_date_heure.txt. Ici les voix ne sont pas séparées : vous voyez seulement « Me » et « Call ».
+- Coût : environ 1-3 centimes de dollar par heure.
+- « Temps réel EN » (à côté de « Sous-titres live ») : vrai streaming, le texte apparaît pendant qu'on parle (environ une demi-seconde de retard). Fonctionne UNIQUEMENT en anglais : utilisez-le pour les appels en anglais, pour les autres langues utilisez « Sous-titres live ». Mêmes sources, même fenêtre Notaire (fichier notary_…_EN.txt). Coût environ 6 centimes par heure et par source.
+
+# Ce que contient le dossier
+- video_….mp4 — vidéo avec l'audio et les sous-titres intégrés (dans VLC : menu Sous-titres).
+- transcript.md — la conversation dans l'ordre, avec heures et noms : c'est celle à donner à l'IA.
+- transcript.json — la même chose dans un format structuré.
+- speakers.json — qui est qui (Interlocutore N → nom).
+- data\ — données techniques : pistes audio, .srt, réponses des API.
+
+# Les boutons du haut
+- Traiter des fichiers… — transcrit des fichiers que vous avez déjà.
+- Retranscrire… — refait tout sur un dossier déjà enregistré (par ex. après une erreur réseau ou une mise à jour du programme). Cela coûte autant que la première fois.
+- Ouvrir le dossier — ouvre le dernier enregistrement ou le dossier principal.
+- Onglet Transcription : « Nommer les interlocuteurs… » et « Appliquer speakers.json modifié… ».
+
+# Icône dans la zone de notification et langue
+- Muninn n'occupe pas la barre des tâches : il vit dans l'icône près de l'horloge (si vous ne la voyez pas, ouvrez la flèche ^ des icônes cachées).
+- Le X et « réduire » cachent seulement la fenêtre : l'enregistrement et les sous-titres continuent. Cliquez sur l'icône pour la rouvrir ; clic droit pour Démarrer/Arrêter l'enregistrement, Sous-titres live et Quitter.
+- Si vous relancez Muninn depuis le Bureau, la fenêtre déjà ouverte réapparaît.
+- Langue de l'interface : Réglages → Langue (italiano, English, français, Deutsch, español), puis redémarrage. Les transcriptions et les fichiers produits ne changent pas : le texte reste dans la langue parlée et les noms de fichiers restent en italien.
+
+# Coûts indicatifs (DeepInfra)
+- Transcription avec voix séparées : environ 0,12 $ par heure d'audio et par piste.
+- Sous-titres live : environ 1-3 centimes par heure.
+- Dans l'onglet Transcription, les lignes avec ⏱ indiquent la durée de chaque étape.
+
+# Problèmes courants
+- « Clé DeepInfra non valide » ou « Crédit épuisé » : vérifiez la clé et le crédit sur deepinfra.com.
+- Barre de niveau immobile : vous avez choisi le mauvais périphérique ; appuyez sur Actualiser et choisissez celui que vous utilisez vraiment.
+- Vidéo noire : enregistrez tout l'écran au lieu de la fenêtre.
+- Blocs « non transcrits » : pas de réseau ou délai dépassé ; utilisez « Retranscrire… ».
+- Détails des erreurs : messages gris dans l'onglet Transcription et fichier error.log dans le dossier du programme.
+
+# Confidentialité
+- L'audio est envoyé à DeepInfra, qui déclare ne pas l'enregistrer sur disque ni l'utiliser pour entraîner des modèles.
+- Pour les enregistrements professionnels, vérifiez que c'est autorisé et prévenez les participants.

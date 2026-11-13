@@ -1,0 +1,22 @@
+# Personal settings: they contain the DeepInfra key and must NEVER go into the repository
+config.json
+
+# User data
+recordings/
+error.log
+
+# Python environment
+.venv/
+__pycache__/
+*.pyc
+
+# Build output (tools\build.bat)
+build/
+dist/
+*.spec
+
+# Editor / system
+.vscode/
+.idea/
+Thumbs.db
+desktop.ini

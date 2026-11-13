@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="100%" height="100%">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="38%" r="75%">
+      <stop offset="0" stop-color="#5b3aa8"/>
+      <stop offset="0.55" stop-color="#2e1d63"/>
+      <stop offset="1" stop-color="#140c33"/>
+    </radialGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffe8a3"/>
+      <stop offset="0.5" stop-color="#e3b04b"/>
+      <stop offset="1" stop-color="#a8721f"/>
+    </linearGradient>
+    <linearGradient id="pageL" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#e9d9b0"/>
+      <stop offset="1" stop-color="#fbf2d9"/>
+    </linearGradient>
+    <linearGradient id="pageR" x1="1" y1="0" x2="0" y2="0">
+      <stop offset="0" stop-color="#e9d9b0"/>
+      <stop offset="1" stop-color="#fbf2d9"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#bfe9ff" stop-opacity="0.95"/>
+      <stop offset="0.4" stop-color="#8fb8ff" stop-opacity="0.45"/>
+      <stop offset="1" stop-color="#8f6bff" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="wave" gradientUnits="userSpaceOnUse" x1="88" y1="0" x2="168" y2="0">
+      <stop offset="0" stop-color="#7ee0ff"/>
+      <stop offset="0.5" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#c79bff"/>
+    </linearGradient>
+  </defs>
+
+  <!-- fondo -->
+  <rect x="8" y="8" width="240" height="240" rx="54" fill="url(#bg)"/>
+  <rect x="8" y="8" width="240" height="240" rx="54" fill="none" stroke="url(#gold)" stroke-width="6"/>
+
+  <!-- stelle -->
+  <g fill="#ffe8a3">
+    <path d="M52 52 l4 10 10 4 -10 4 -4 10 -4 -10 -10 -4 10 -4z"/>
+    <path d="M204 44 l3 7 7 3 -7 3 -3 7 -3 -7 -7 -3 7 -3z"/>
+    <circle cx="190" cy="92" r="3"/>
+    <circle cx="70" cy="100" r="2.5"/>
+    <circle cx="214" cy="128" r="2"/>
+  </g>
+
+  <!-- bagliore magico -->
+  <ellipse cx="128" cy="112" rx="92" ry="70" fill="url(#glow)"/>
+
+  <!-- onda sonora che sale dal libro -->
+  <g fill="none" stroke="url(#wave)" stroke-linecap="round" stroke-width="9">
+    <line x1="92" y1="112" x2="92" y2="132"/>
+    <line x1="110" y1="92" x2="110" y2="140"/>
+    <line x1="128" y1="70" x2="128" y2="146"/>
+    <line x1="146" y1="88" x2="146" y2="140"/>
+    <line x1="164" y1="106" x2="164" y2="132"/>
+  </g>
+
+  <!-- libro aperto -->
+  <g>
+    <!-- copertina -->
+    <path d="M30 168 Q128 150 226 168 L226 200 Q128 184 30 200 Z" fill="#6b1f3a"/>
+    <path d="M30 168 Q128 150 226 168 L226 200 Q128 184 30 200 Z" fill="none" stroke="url(#gold)" stroke-width="4"/>
+    <!-- pagine -->
+    <path d="M128 150 Q86 132 38 144 L38 186 Q86 174 128 190 Z" fill="url(#pageL)"/>
+    <path d="M128 150 Q170 132 218 144 L218 186 Q170 174 128 190 Z" fill="url(#pageR)"/>
+    <!-- righe di testo -->
+    <g stroke="#a88c5a" stroke-width="3" stroke-linecap="round" fill="none" opacity="0.8">
+      <path d="M52 156 Q84 148 114 158"/>
+      <path d="M52 168 Q84 160 114 170"/>
+      <path d="M142 158 Q172 148 204 156"/>
+      <path d="M142 170 Q172 160 204 168"/>
+    </g>
+    <!-- dorso -->
+    <path d="M128 150 L128 192" stroke="#8a6a35" stroke-width="3"/>
+  </g>
+
+  <!-- gemma sul segnalibro -->
+  <path d="M120 196 L136 196 L136 222 L128 214 L120 222 Z" fill="url(#gold)"/>
+  <circle cx="128" cy="200" r="5" fill="#7ee0ff" stroke="#fff" stroke-width="1.5"/>
+</svg>

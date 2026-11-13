@@ -1,0 +1,74 @@
+# Was das Programm macht
+Es nimmt Ihre Calls auf (Ihr Mikrofon, das Audio des Calls, Bildschirme oder Fenster), transkribiert sie dann mit Nvidia Nemotron 3.5 auf DeepInfra, trennt die Stimmen und lässt Sie jedem Sprecher einen Namen geben, indem Sie ein paar Ausschnitte anhören. Das Ergebnis ist ein Ordner mit einem untertitelten Video und einem Transkript, das Sie direkt einer KI geben können. Außerdem zeigen die Live-Untertitel fast in Echtzeit auf dem Bildschirm, was gesagt wird.
+
+# Erster Start
+- Einstellungen → DeepInfra-Schlüssel einfügen (deepinfra.com → API Keys), auf Prüfen drücken.
+- Ihren Namen eingeben: Er erscheint statt „Me“ (die Bezeichnung für Sie).
+- „Einstellungen speichern“ (rotes Siegel) in der oberen Leiste drücken.
+- Audiokompression: Opus mit 24-32 kbps ist die beste Wahl für Sprache (etwa 11-14 MB pro Stunde). MP3 für Kompatibilität, FLAC/WAV nur, wenn das Audio verlustfrei gesendet werden soll.
+
+# Einen Call aufnehmen
+- Tab Audio: das Mikrofon (Bezeichnung „Me“) und den Ausgang von Headset/Lautsprechern (Bezeichnung „Call“) mit „Mehrere Personen (Call)“ anhaken. Die Pegelbalken müssen sich bewegen, wenn jemand spricht.
+- Sie wissen nicht, welches Gerät das richtige ist? „Testen“ bei einem Mikrofon nimmt 4 Sekunden auf und spielt sie ab; bei einem Ausgang spielt es einen Gong und prüft, ob er ankommt (hören Sie ihn im Headset des Calls, ist es der richtige). „Pegel anzeigen“ schaltet alle Balken ein: Sprechen Sie oder spielen Sie Audio ab und schauen Sie, welcher sich bewegt.
+- Tab Video (optional): den Bildschirm anhaken, auf dem Teams läuft. Das ist die sicherste Wahl; einzelne Fenster werden manchmal schwarz.
+- Tab Video: Rechts sehen Sie eine Live-Vorschau des gewählten Bildschirms oder Fensters, genau so, wie es aufgenommen wird. Ist die Vorschau mit „Direktes Fenster“ schwarz, erscheint ein Hinweis: Nutzen Sie „Bildschirmbereich“ oder den ganzen Bildschirm.
+- „Aufnahme starten“ drücken. Am Ende des Calls „Stoppen und speichern“ drücken: Den Rest erledigt das Programm allein.
+- Nutzen Sie ein Headset: Mit Lautsprechern nimmt das Mikrofon auch die anderen auf und der Text wird doppelt.
+- Videokompression (Tab Video): „H.265 Intel Quick Sync“ erzeugt kleine Dateien fast ohne Prozessorlast; „H.264“ ist am kompatibelsten. Qualität „Mittel“ und Auflösung „Höchstens 1080p“ reichen für Meetings und Folien.
+
+# Sprecher benennen
+- Nach der Transkription öffnet sich das Fenster Sprecher: Drücken Sie bei jeder Stimme ▶, um 5 Sekunden zu hören, in denen nur sie spricht.
+- Namen eingeben oder auswählen (das Programm merkt sich die schon verwendeten) und „Namen anwenden“ drücken: Sie werden in Transkript, Untertiteln und Video eingesetzt.
+- Sind zwei Stimmen dieselbe Person, denselben Namen eingeben. Wenn Sie nicht wissen, wer es ist, leer lassen.
+- „Später“ schließt ohne Änderungen: Im Tab Transkript mit „Sprecher benennen…“ wieder öffnen.
+- Calls über einer Stunde werden in Blöcke geteilt: Das Programm verknüpft die Stimmen derselben Person über die Blöcke hinweg selbst.
+
+# Vorhandene Dateien verarbeiten
+- „Dateien verarbeiten…“ → eine oder mehrere Dateien wählen (Teams-Aufnahmen, MP4, MP3, M4A…).
+- Für jede wird ein Ordner wie bei Aufnahmen angelegt, dann öffnet sich das Namensfenster.
+- Hier sind alle Stimmen, auch Ihre, in derselben Spur.
+
+# Live-Untertitel und Notar
+- „Live-Untertitel“ drücken: Sie nutzen dieselben Quellen, die im Tab Audio angehakt sind, und funktionieren auch ohne Aufnahme.
+- Unten erscheinen die Untertitel (ziehen Sie sie, wohin Sie wollen, Mausrad = Größe); rechts zeigt das Fenster Notar alles, was gesagt wurde, Zeile für Zeile, mit Uhrzeit und Sprecher.
+- Untertitel und Notar sind weder in der Bildschirmfreigabe noch in Aufnahmen zu sehen.
+- Verzögerung meist 1-2 Sekunden: Der laufende Satz wird beim Sprechen aktualisiert und bei der ersten Pause (eine halbe Sekunde) endgültig. Bestätigte Wörter werden weiß, Wörter, die das Modell noch korrigieren kann, bleiben grau.
+- In der oberen Zeile der Untertitel zeigt „Antwort ~N s“, wie schnell DeepInfra antwortet: Steigt der Wert auf 4-8 s, ist der Dienst überlastet, nicht Ihr PC.
+- Der Notar wird automatisch in recordings\live\notary_Datum_Uhrzeit.txt gespeichert. Die Stimmen sind hier nicht getrennt: Sie sehen nur „Me“ und „Call“.
+- Kosten: etwa 1-3 Cent pro Stunde.
+- „Echtzeit EN“ (neben „Live-Untertitel“): echtes Streaming, der Text erscheint, während gesprochen wird (etwa eine halbe Sekunde Verzögerung). Funktioniert NUR auf Englisch: Nutzen Sie es für Calls auf Englisch, für andere Sprachen „Live-Untertitel“. Gleiche Quellen, gleiches Notar-Fenster (Datei notary_…_EN.txt). Kosten etwa 6 Cent pro Stunde und Quelle.
+
+# Was im Ordner liegt
+- video_….mp4 — Video mit Audio und eingebetteten Untertiteln (in VLC: Menü Untertitel).
+- transcript.md — das Gespräch in der richtigen Reihenfolge, mit Uhrzeiten und Namen: Das ist die Datei für die KI.
+- transcript.json — dasselbe in strukturierter Form.
+- speakers.json — wer wer ist (Interlocutore N → Name).
+- data\ — technisches Material: Audiospuren, .srt, API-Antworten.
+
+# Die Schaltflächen oben
+- Dateien verarbeiten… — transkribiert Dateien, die Sie schon haben.
+- Neu transkribieren… — macht alles für einen bereits aufgenommenen Ordner neu (z. B. nach einem Netzwerkfehler oder einem Programm-Update). Kostet so viel wie beim ersten Mal.
+- Ordner öffnen — öffnet die letzte Aufnahme oder den Hauptordner.
+- Tab Transkript: „Sprecher benennen…“ und „Geänderte speakers.json anwenden…“.
+
+# Symbol im Infobereich und Sprache
+- Muninn belegt keinen Platz in der Taskleiste: Es lebt im Symbol neben der Uhr (wenn Sie es nicht sehen, öffnen Sie den Pfeil ^ der ausgeblendeten Symbole).
+- Das X und „Minimieren“ blenden nur das Fenster aus: Aufnahme und Untertitel laufen weiter. Klick auf das Symbol öffnet es wieder; Rechtsklick für Aufnahme starten/stoppen, Live-Untertitel und Beenden.
+- Wenn Sie Muninn erneut vom Desktop starten, erscheint das bereits geöffnete Fenster.
+- Sprache der Oberfläche: Einstellungen → Sprache (italiano, English, français, Deutsch, español), dann Neustart. Transkripte und erzeugte Dateien ändern sich nicht: Der Text bleibt in der gesprochenen Sprache und die Dateinamen bleiben italienisch.
+
+# Ungefähre Kosten (DeepInfra)
+- Transkription mit getrennten Stimmen: etwa 0,12 $ pro Stunde Audio und Spur.
+- Live-Untertitel: etwa 1-3 Cent pro Stunde.
+- Im Tab Transkript zeigen die Zeilen mit ⏱, wie lange jeder Schritt gedauert hat.
+
+# Häufige Probleme
+- „Ungültiger DeepInfra-Schlüssel“ oder „Guthaben aufgebraucht“: Schlüssel und Guthaben auf deepinfra.com prüfen.
+- Pegelbalken bewegt sich nicht: falsches Gerät gewählt; Aktualisieren drücken und das Gerät wählen, das Sie wirklich nutzen.
+- Schwarzes Video: den ganzen Bildschirm statt des Fensters aufnehmen.
+- Blöcke „nicht transkribiert“: kein Netzwerk oder Timeout; „Neu transkribieren…“ verwenden.
+- Fehlerdetails: graue Meldungen im Tab Transkript und die Datei error.log im Programmordner.
+
+# Datenschutz
+- Das Audio wird an DeepInfra gesendet, das angibt, es weder auf der Festplatte zu speichern noch zum Trainieren von Modellen zu verwenden.
+- Prüfen Sie bei beruflichen Aufnahmen, ob sie erlaubt sind, und informieren Sie die Teilnehmenden.

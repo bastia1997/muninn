@@ -1,0 +1,74 @@
+# Cosa fa
+Registra le tue call (il tuo microfono, l'audio della call, schermi o finestre), poi le trascrive con Nvidia Nemotron 3.5 su DeepInfra, separa le voci e ti fa dare un nome a ogni interlocutore ascoltando qualche spezzone. Il risultato è una cartella con video sottotitolato e trascrizione pronta da dare a un'IA. In più, i Sottotitoli live ti mostrano a schermo, quasi in tempo reale, quello che viene detto.
+
+# Primo avvio
+- Impostazioni → incolla la Chiave DeepInfra (deepinfra.com → API Keys), premi Verifica.
+- Scrivi il tuo nome: comparirà al posto di «Me».
+- Premi «Salva impostazioni» (sigillo rosso) nella barra in alto.
+- Compressione audio: Opus a 24-32 kbps è la scelta migliore per la voce (circa 11-14 MB per ora). MP3 se vuoi compatibilità, FLAC/WAV solo per avere l'audio inviato senza perdita.
+
+# Registrare una call
+- Scheda Audio: spunta il microfono (etichetta «Me») e l'uscita delle cuffie/casse (etichetta «Call») con «Più persone (call)» spuntato. Le barrette del livello devono muoversi quando qualcuno parla.
+- Non sai qual è il dispositivo giusto? «Prova» su un microfono registra 4 secondi e te li fa riascoltare; su un'uscita suona un din-don e controlla che arrivi (se lo senti nelle cuffie della call, è quella giusta). «Mostra livelli» accende tutte le barre: parla o fai partire un audio e guarda quale si muove.
+- Scheda Video (facoltativa): spunta lo schermo dove c'è Teams. È la scelta più sicura; le singole finestre a volte vengono nere.
+- Scheda Video: a destra c'è l'anteprima dal vivo dello schermo o della finestra che selezioni, esattamente come verrà registrata. Se con «Finestra diretta» l'anteprima è nera, compare un avviso: usa «Area dello schermo» o lo schermo intero.
+- Premi «Avvia registrazione». A fine call premi «Ferma e salva»: il programma fa tutto da solo.
+- Usa le cuffie: con le casse il microfono riprende anche gli altri e il testo si duplica.
+- Compressione video (scheda Video): «H.265 Intel Quick Sync» fa file piccoli quasi senza pesare sul processore; «H.264» è il più compatibile. Qualità «Media» e risoluzione «Massimo 1080p» vanno bene per riunioni e slide.
+
+# Dare i nomi agli interlocutori
+- Finita la trascrizione si apre la finestra Interlocutori: per ogni voce premi ▶ per sentire 5 secondi in cui parla solo lei.
+- Scrivi o scegli il nome (il programma ricorda quelli già usati) e premi «Applica i nomi»: vengono sostituiti in trascrizione, sottotitoli e video.
+- Se due voci sono la stessa persona dai lo stesso nome. Se non sai chi è lascia vuoto.
+- «Più tardi» chiude senza cambiare nulla: riaprila dalla scheda Trascrizione con «Assegna nomi agli interlocutori…».
+- Le call oltre l'ora sono divise in blocchi: il programma ricollega da solo le voci della stessa persona tra un blocco e l'altro.
+
+# Elaborare file già registrati
+- «Elabora file…» → scegli uno o più file (registrazioni di Teams, MP4, MP3, M4A…).
+- Per ognuno viene creata una cartella come per le registrazioni, poi si apre la finestra dei nomi.
+- Qui tutte le voci, compresa la tua, sono nella stessa traccia.
+
+# Sottotitoli live e Notaio
+- Premi «Sottotitoli live»: usa le stesse sorgenti spuntate nella scheda Audio e si può usare anche senza registrare.
+- In basso compaiono i sottotitoli (trascinali dove vuoi, rotellina = dimensione); a destra la finestra Notaio con tutto quello che è stato detto, riga per riga, con orario e chi parla.
+- Sottotitoli e Notaio non si vedono in condivisione schermo né nelle registrazioni.
+- Ritardo di solito 1-2 secondi: la frase in corso viene aggiornata mentre parli e diventa definitiva alla prima pausa (mezzo secondo). Le parole già confermate diventano bianche, quelle che il modello può ancora correggere restano grigie.
+- Nella riga in alto dei sottotitoli «risposta ~N s» dice quanto sta rispondendo DeepInfra: se sale a 4-8 s è il servizio sovraccarico, non il tuo PC.
+- Il Notaio si salva da solo in recordings\live\notary_data_ora.txt. Qui le voci non sono separate: vedi solo «Me» e «Call».
+- Costo: circa 1-3 centesimi all'ora.
+- «Real time EN» (accanto a «Sottotitoli live»): streaming vero, il testo compare mentre si parla (circa mezzo secondo di ritardo). Funziona SOLO in inglese: usalo per le call in inglese, per l'italiano usa «Sottotitoli live». Stesse sorgenti, stessa finestra Notaio (file notary_…_EN.txt). Costo circa 6 centesimi all'ora per sorgente.
+
+# Cosa trovi nella cartella
+- video_….mp4 — video con audio e sottotitoli dentro (in VLC: menu Sottotitoli).
+- transcript.md — la conversazione in ordine, con orari e nomi: è quella da dare all'IA.
+- transcript.json — la stessa cosa in formato strutturato.
+- speakers.json — chi è chi (Interlocutore N → nome).
+- data\ — materiale tecnico: tracce audio, .srt, risposte delle API.
+
+# I pulsanti in alto
+- Elabora file… — trascrive file che hai già.
+- Trascrivi di nuovo… — rifà tutto su una cartella già registrata (es. dopo un errore di rete o un aggiornamento del programma). Costa come la prima volta.
+- Apri cartella — apre l'ultima registrazione o la cartella principale.
+- Scheda Trascrizione: «Assegna nomi agli interlocutori…» e «Applica speakers.json modificato…».
+
+# Icona nel tray e lingua
+- Muninn non occupa la barra delle applicazioni: vive nell'icona vicino all'orologio (se non la vedi, apri la freccia ^ delle icone nascoste).
+- La X e «riduci a icona» nascondono solo la finestra: registrazione e sottotitoli continuano. Clic sull'icona per riaprirla; tasto destro per Avvia/Ferma registrazione, Sottotitoli live ed Esci.
+- Se avvii di nuovo Muninn dal Desktop, si riapre la finestra già aperta.
+- Lingua dell'interfaccia: Impostazioni → Lingua (italiano, English, français, Deutsch, español), poi riavvio. Trascrizioni e file prodotti non cambiano: il testo resta nella lingua parlata e i nomi dei file restano in italiano.
+
+# Costi indicativi (DeepInfra)
+- Trascrizione con voci separate: circa 0,12 $ per ora di audio per ogni traccia.
+- Sottotitoli live: circa 1-3 centesimi all'ora.
+- Nella scheda Trascrizione le righe con ⏱ dicono quanto è durato ogni passaggio.
+
+# Problemi comuni
+- «Chiave DeepInfra non valida» o «Credito esaurito»: controlla chiave e credito su deepinfra.com.
+- Barretta del livello ferma: hai scelto il dispositivo sbagliato; premi Aggiorna e scegli quello che stai usando davvero.
+- Video nero: registra lo schermo intero invece della finestra.
+- Blocchi «non trascritti»: rete assente o timeout; usa «Trascrivi di nuovo…».
+- Dettagli degli errori: messaggi grigi nella scheda Trascrizione e file error.log nella cartella del programma.
+
+# Privacy
+- L'audio viene inviato a DeepInfra, che dichiara di non salvarlo su disco né usarlo per addestrare modelli.
+- Per registrazioni di lavoro verifica che sia consentito e avvisa i partecipanti.

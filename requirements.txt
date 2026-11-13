@@ -1,0 +1,7 @@
+PyAudioWPatch>=0.2.12
+numpy>=1.24
+requests>=2.31
+imageio-ffmpeg>=0.5.1
+websocket-client>=1.8
+pystray>=0.19
+pillow>=10

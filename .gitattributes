@@ -1,0 +1,5 @@
+# Text normalized in the repository; .bat files must keep Windows line endings (CRLF) to work
+* text=auto
+*.bat text eol=crlf
+*.png binary
+*.ico binary
